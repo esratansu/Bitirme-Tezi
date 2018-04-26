@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">CardView</string>
+    <string name="action_settings">Settings</string>
+    <string name="action_add_favourite">Add to Favourites</string>
+    <string name="action_play_next">Play Next</string>
+    <string name="backdrop_title">LOVE MUSICS</string>
+    <string name="backdrop_subtitle">This season top 20 music</string>
+    <string name="facebook_app_id">191141724982070</string>
+    <string name="fb_login_protocol_scheme">fb191141724982070</string>
+    <string name="title_activity_get_tweets">GetTweets</string>
+
+    <string-array name="menu">
+        <item >ALARM</item>
+        <item >GPS</item>
+        <item >PAYLAŞIM</item>
+
+    </string-array>
+    <string name="drawer_open">Drawer Açıldı</string>
+    <string name="drawer_close">Drawer Kapandı</string>
+</resources>
