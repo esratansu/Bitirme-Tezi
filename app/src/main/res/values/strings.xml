@@ -10,9 +10,9 @@
     <string name="title_activity_get_tweets">GetTweets</string>
 
     <string-array name="menu">
-        <item >ALARM</item>
-        <item >GPS</item>
-        <item >PAYLAŞIM</item>
+        <item>ALARM</item>
+        <item>GPS</item>
+        <item>PAYLAŞIM</item>
 
     </string-array>
     <string name="drawer_open">Drawer Açıldı</string>

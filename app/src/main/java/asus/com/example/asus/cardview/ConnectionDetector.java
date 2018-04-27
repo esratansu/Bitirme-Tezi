@@ -20,7 +20,7 @@ public class ConnectionDetector {
      *Android cihazda  Internet varsa true , yoksa false döndürdüm
      * **/
 
-  /*
+
     public boolean isConnectingToInternet(){
         ConnectivityManager connectivity = (ConnectivityManager) _context.getSystemService(Context.CONNECTIVITY_SERVICE);
         if (connectivity != null)
@@ -36,5 +36,5 @@ public class ConnectionDetector {
         }
         return false;
     }
-      */
+
 }

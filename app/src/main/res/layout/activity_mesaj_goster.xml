@@ -9,18 +9,7 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="asus.com.example.asus.cardview.MesajGosterActivity" >
 
-    <!--<ImageView
-         android:id="@+id/overflow"
-         android:layout_width="match_parent"
-         android:layout_height="wrap_content"
-         android:src="@drawable/may" />
 
-     <TextView
-         android:id="@+id/textviewday"
-         android:layout_width="match_parent"
-         android:layout_height="wrap_content"
-         android:text="Monday Tuesday Wedne Thursday Friday Satur Sunday"/>
- -->
 
     <GridLayout
         android:layout_width="fill_parent"

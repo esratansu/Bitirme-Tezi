@@ -4,7 +4,7 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
-
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <provider
         android:name="com.facebook.FacebookContentProvider"
         android:authorities="com.facebook.app.FacebookContentProvider191141724982070"
@@ -15,7 +15,7 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/Theme.AppCompat.Light.NoActionBar">
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
@@ -37,19 +37,25 @@
 
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
-            android:value="@string/facebook_app_id" />
+            android:value="@string/facebook_app_id"
+
+            />
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyCPGs7O9rt4Zl35go55QERu9gDs1r4eTe4"></meta-data>
 
         <activity android:name=".MesajGosterActivity" />
         <activity android:name=".YaziEkle" />
+        <activity android:name=".NewYaziEkle" />
+        <activity android:name=".ForAlarm" />
         <activity
             android:name=".GetTweets"
             android:label="@string/title_activity_get_tweets" />
 
         <receiver android:name=".AlarmReceiver" />
 
-        <activity android:name=".navigationdrawe.fragments.FragmentAlarm" />
-        <activity android:name=".navigationdrawe.fragments.FragmentPaylasim" />
-        <activity android:name=".navigationdrawe.fragments.FragmentGps" />
+        <activity android:name=".ForGps"></activity>
     </application>
 
 </manifest>

@@ -24,6 +24,7 @@ import java.util.HashMap;
 
 public class CustomAdapter extends BaseAdapter {
 
+
     private Activity activity;
     private static LayoutInflater inflater=null;
     public Resources res;

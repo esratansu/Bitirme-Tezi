@@ -29,7 +29,7 @@ public class MesajGosterActivity extends AppCompatActivity {
             myButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent intent = new Intent(MesajGosterActivity.this, YaziEkle.class);
+                    Intent intent = new Intent(MesajGosterActivity.this, NewYaziEkle.class);
                     intent.putExtra("veri", "id");
                     startActivity(intent);
                 }
