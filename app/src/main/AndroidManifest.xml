@@ -5,10 +5,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <provider
-        android:name="com.facebook.FacebookContentProvider"
-        android:authorities="com.facebook.app.FacebookContentProvider191141724982070"
-        android:exported="true" />
+
 
     <application
         android:allowBackup="true"
@@ -16,6 +13,14 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id" />
+
+        <activity
+            android:name="com.facebook.FacebookActivity"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:label="@string/app_name" />
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
@@ -35,27 +40,28 @@
             </intent-filter>
         </activity>
 
-        <meta-data
-            android:name="com.facebook.sdk.ApplicationId"
-            android:value="@string/facebook_app_id"
-
-            />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyCPGs7O9rt4Zl35go55QERu9gDs1r4eTe4"></meta-data>
+            android:value="AIzaSyCPGs7O9rt4Zl35go55QERu9gDs1r4eTe4" />
 
         <activity android:name=".MesajGosterActivity" />
         <activity android:name=".YaziEkle" />
         <activity android:name=".NewYaziEkle" />
         <activity android:name=".ForAlarm" />
+
         <activity
             android:name=".GetTweets"
             android:label="@string/title_activity_get_tweets" />
-
+        <activity android:name=".ForGps" />
+        <activity android:name=".ForPaylasim"></activity>
         <receiver android:name=".AlarmReceiver" />
+        <provider
+            android:name="com.facebook.FacebookContentProvider"
+            android:authorities="com.facebook.app.FacebookContentProvider404737766664960"
+            android:exported="true" />
 
-        <activity android:name=".ForGps"></activity>
+
     </application>
 
 </manifest>

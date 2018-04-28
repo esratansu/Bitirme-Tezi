@@ -1,13 +1,8 @@
 package asus.com.example.asus.cardview;
 
-import android.app.AlarmManager;
-import android.app.PendingIntent;
 import android.app.ProgressDialog;
-import android.app.TimePickerDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
 import android.content.pm.ActivityInfo;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -20,7 +15,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.facebook.CallbackManager;
@@ -37,7 +31,6 @@ import com.facebook.share.widget.ShareDialog;
 import org.json.JSONObject;
 
 import java.util.Arrays;
-import java.util.Calendar;
 
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
@@ -48,29 +41,30 @@ import twitter4j.auth.RequestToken;
 import twitter4j.conf.Configuration;
 import twitter4j.conf.ConfigurationBuilder;
 
-import static asus.com.example.asus.cardview.R.id.edit_share;
-import static asus.com.example.asus.cardview.R.id.share_button;
+import static asus.com.example.asus.cardview.R.id.txt_user_name;
 
 
-public class YaziEkle extends AppCompatActivity {
+public class ForPaylasim extends AppCompatActivity {
 
 
-    //GLOBAL VARIABLESS
+    /**
+     * Android uygulamasına , Twitter uygulamasını entegre etmek için, daha önce oluşturdugumuz
+     * twitter uygulamasının bilgilerini değişkenlere atadık..
+     */
+    static String TWITTER_CONSUMER_KEY = "I2hwwguaN1HBMKlWFZK1UAj1R";
+    static String TWITTER_CONSUMER_SECRET = "L4qDnjEwWTv6u6A3s623zklpgTMUAMjXZX8EhO7mclYkJeyDxC";
+
     static final String PREF_KEY_OAUTH_TOKEN = "2381876837-IDIOT0Zkjfckpe93za0HWzGu1TM8O2TM61vCPHZ";
     static final String PREF_KEY_OAUTH_SECRET = "qia3xVlFHpU6lJEuJKidaMvK1y0XaUHJbHVx1m9B1rwvy";
     static final String PREF_KEY_TWITTER_LOGIN = "isTwitterLogedIn";
+
     static final String TWITTER_CALLBACK_URL = "oauth://t4jsample";
     // Twitter oauth urls
     static final String URL_TWITTER_AUTH = "auth_url";
     static final String URL_TWITTER_OAUTH_VERIFIER = "oauth_verifier";
     static final String URL_TWITTER_OAUTH_TOKEN = "oauth_token";
-    static String TWITTER_CONSUMER_KEY = "I2hwwguaN1HBMKlWFZK1UAj1R";
-    static String TWITTER_CONSUMER_SECRET = "L4qDnjEwWTv6u6A3s623zklpgTMUAMjXZX8EhO7mclYkJeyDxC";
-    // Twitter
-    private static Twitter twitter;
-    private static RequestToken requestToken;
-    // Shared Preferences
-    private static SharedPreferences mSharedPreferences;
+
+    // Login button
     Button btnLoginTwitter;
     // Update status button
     Button btnUpdateStatus;
@@ -83,38 +77,135 @@ public class YaziEkle extends AppCompatActivity {
     // lbl update
     TextView lblUpdate;
     TextView lblUserName;
+
     // Progress dialog
     ProgressDialog pDialog;
-    // Alert Dialog Manager
-    AlertDialogManager alert = new AlertDialogManager();
+
+    // Twitter
+    private static Twitter twitter;
+    private static RequestToken requestToken;
+
+    // Shared Preferences
+    private static SharedPreferences mSharedPreferences;
+
     // Internet Connection detector
     private ConnectionDetector cd;
 
+    // Alert Dialog Manager
+    AlertDialogManager alert = new AlertDialogManager();
+
+
+    //Facebook için
+    private LoginButton loginButton;
+    private CallbackManager callbackManager;
+    private TextView user_name;
+    private Button share_button;
+    private ShareDialog shareDialog;
+    private EditText share_txt;
+
+    @Override
+    protected void onActivityResult(final int requestCode, final int resultCode, final Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        callbackManager.onActivityResult(requestCode, resultCode, data);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_yazi_ekle);
+        //facebook için
+        FacebookSdk.sdkInitialize(this.getApplicationContext());
+
+        shareDialog = new ShareDialog(ForPaylasim.this);
+
+        callbackManager = CallbackManager.Factory.create();
+
+        setContentView(R.layout.activity_for_paylasim);
 
 
+        user_name = (TextView) findViewById(txt_user_name);
 
 
+        loginButton = (LoginButton) findViewById(R.id.login_button);
+
+        share_txt = (EditText) findViewById(R.id.edit_share);
+
+        share_button = (Button) findViewById(R.id.share_button);
+
+        loginButton.setReadPermissions(Arrays.asList("public_profile ", "user_friends", "email"));
 
 
+        loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+            @Override
+            public void onSuccess(LoginResult loginResult) {
 
 
+                GraphRequest request = GraphRequest.newMeRequest(
+                        loginResult.getAccessToken(),
+                        new GraphRequest.GraphJSONObjectCallback() {
+                            @Override
+                            public void onCompleted(
+                                    JSONObject user,
+                                    GraphResponse response) {
 
 
+                                // user_name.setText(response.toString());
+
+                                try {
+
+                                    String id = user.getString("id");
+                                    String name = user.getString("name");
+                                    user_name.setText("Hoşgeldin " + " " + name);
 
 
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+
+
+                            }
+                        });
+
+                request.executeAsync();
+
+            }
+
+            @Override
+            public void onCancel() {
+
+
+            }
+
+            @Override
+            public void onError(FacebookException e) {
+
+            }
+        });
+
+
+        share_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+                shareToWall();
+
+            }
+        });
+
+
+        //Buraya kadar olan kısım hep facebooktur.
+
+
+        //ŞİMDİ TWİTTER
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-        Intent intent = getIntent();
 
+        cd = new ConnectionDetector(getApplicationContext());
 
+        // Android cihazın interneti olup olmadığına kontrol yaptık
         if (!cd.isConnectingToInternet()) {
 
-            alert.showAlertDialog(YaziEkle.this, "Internet bağlanma hatası",
+            alert.showAlertDialog(ForPaylasim.this, "Internet bağlanma hatası",
                     "Lütfen internet bağlantınızı kontrol edin", false);
             return;
         }
@@ -122,10 +213,9 @@ public class YaziEkle extends AppCompatActivity {
         // TWITTER_CONSUMER_KEY ve TWITTER_CONSUMER_SECRET değerlerini değişkene atanıp,atanmadığı kontrolu yaptım
         if (TWITTER_CONSUMER_KEY.trim().length() == 0 || TWITTER_CONSUMER_SECRET.trim().length() == 0) {
 
-            alert.showAlertDialog(YaziEkle.this, "Twitter oAuth tokens", "İlk önce  twitter oauth tokens değerlerini değişkene atayın!", false);
+            alert.showAlertDialog(ForPaylasim.this, "Twitter oAuth tokens", "İlk önce  twitter oauth tokens değerlerini değişkene atayın!", false);
             return;
         }
-
 
         //Arayuz elemanlarını tanımladım..
         btnLoginTwitter = (Button) findViewById(R.id.btnLoginTwitter);
@@ -136,7 +226,6 @@ public class YaziEkle extends AppCompatActivity {
         lblUpdate = (TextView) findViewById(R.id.lblUpdate);
         lblUserName = (TextView) findViewById(R.id.lblUserName);
 
-
         mSharedPreferences = getApplicationContext().getSharedPreferences(
                 "MyPref", 0);
 
@@ -157,26 +246,9 @@ public class YaziEkle extends AppCompatActivity {
             btnLogoutTwitter.setVisibility(View.VISIBLE);
         }
 
-        mSharedPreferences = getApplicationContext().getSharedPreferences(
-                "MyPref", 0);
-
-        //Kullanıcının Twitter hesabını giriş yapıp yapmama durumuna göre , arayuz elemanlarını görünür ve görünmez yaptım
-        if (!isTwitterLoggedInAlready()) {
-            //Hesabına giriş yapmamış durumunda Login butonunu görünür yaptım
-            btnLoginTwitter.setVisibility(View.VISIBLE);
-        } else {
-            //Logout durumu
-            // login button gizli
-            btnLoginTwitter.setVisibility(View.GONE);
-
-            //Update Twitter ve Get Tweets ile ilgili arayüz elemanlarını görünür yaptım
-            lblUpdate.setVisibility(View.VISIBLE);
-            txtUpdate.setVisibility(View.VISIBLE);
-            btnUpdateStatus.setVisibility(View.VISIBLE);
-            btnGetTweets.setVisibility(View.VISIBLE);
-            btnLogoutTwitter.setVisibility(View.VISIBLE);
-        }
-
+        /**
+         * Twitter login butonuna tıklandığında çalısacak kod
+         * */
         btnLoginTwitter.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -193,6 +265,8 @@ public class YaziEkle extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //Kullanıcının Twitter 'a  göndermek istedigi yazıyı  değişkene atadım
+
+
                 String status = txtUpdate.getText().toString();
 
                 //Edittext den gelen değeri boşmu kontrolu yapıldı ve değer updateTwitterStatus metoduna gonderildi
@@ -205,8 +279,9 @@ public class YaziEkle extends AppCompatActivity {
                 }
             }
         });
-
-
+        /**
+         * Get Tweets butonuna tıklandığında çalısacak kod
+         * */
         btnGetTweets.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -214,6 +289,9 @@ public class YaziEkle extends AppCompatActivity {
             }
         });
 
+        /**
+         * Logout butonuna tıklandığında çalısacak kod
+         * */
         btnLogoutTwitter.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -223,6 +301,10 @@ public class YaziEkle extends AppCompatActivity {
             }
         });
 
+        /**
+         * Bu kontrol,1 kere twitter sayfasına yönlendiriyor, hesap giriş bilgisi dogruysa,
+         * Android uygulamasnın geri donuş yapılmasına saglayan bölüm
+         * */
         if (!isTwitterLoggedInAlready()) {
             Uri uri = getIntent().getData();
             if (uri != null && uri.toString().startsWith(TWITTER_CALLBACK_URL)) {
@@ -235,7 +317,7 @@ public class YaziEkle extends AppCompatActivity {
                     AccessToken accessToken = twitter.getOAuthAccessToken(
                             requestToken, verifier);
 
-                    Editor e = mSharedPreferences.edit();
+                    SharedPreferences.Editor e = mSharedPreferences.edit();
 
                     e.putString(PREF_KEY_OAUTH_TOKEN, accessToken.getToken());
                     e.putString(PREF_KEY_OAUTH_SECRET,
@@ -270,17 +352,54 @@ public class YaziEkle extends AppCompatActivity {
         }
 
 
+    }
+
+   /* private void shareToWall() {
+
+        String send = share_txt.getText().toString();
+
+
+        if(shareDialog.canShow(ShareLinkContent.class))
+        {
+            ShareLinkContent shareLinkContent = new ShareLinkContent.Builder()
+                    .setQuote(send)
+                    .setContentUrl(Uri.parse(" "))
+                    .setContentDescription("Facebook Entegrasyonu Tamamlandı"+" "+send)
+                    .build();
+
+            shareDialog.show(shareLinkContent);
+        }
+
+
+
+
+    }
+*/
+
+
+    //KULLANILAN METOTLAR
+
+    //SADECE BU FACE İÇİN
+    private void shareToWall() {
+        String send = share_txt.getText().toString();
+
+
+        if (shareDialog.canShow(ShareLinkContent.class)) {
+            ShareLinkContent shareLinkContent = new ShareLinkContent.Builder()
+                    .setQuote(send)
+                    .setContentUrl(Uri.parse("...."))
+                    .setContentDescription("Facebook Entegrasyonu Tamamlandı" + " " + send)
+                    .build();
+
+            shareDialog.show(shareLinkContent);
+        }
+
 
     }
 
-
-
-
-    //METOTLARRRRR
-
-
-
-
+    /**
+     * Twitter hesabına login olmasını saglayan metod
+     */
     private void loginToTwitter() {
         //StrictMode kullanarak,ağ erişiminin güvenli bir şekilde yapılmasını sağlıyoruz...
         StrictMode.ThreadPolicy policy = new
@@ -307,6 +426,7 @@ public class YaziEkle extends AppCompatActivity {
         }
     }
 
+    //Twitter Kullanıcısının arkadaşlarının gönderdiği, Tweetlerin Twitter hesabından cekiyoruz
     public void getTweets() {
         //Twitter uygulamasıyla baglantıyı sağlayan key değerlerini atadık
         ConfigurationBuilder cb = new ConfigurationBuilder();
@@ -326,41 +446,17 @@ public class YaziEkle extends AppCompatActivity {
 
     }
 
-    private void logoutFromTwitter() {
-        // Token ve login gibi değişken değerlerini temizledik(sildik)
-        Editor e = mSharedPreferences.edit();
-        e.remove(PREF_KEY_OAUTH_TOKEN);
-        e.remove(PREF_KEY_OAUTH_SECRET);
-        e.remove(PREF_KEY_TWITTER_LOGIN);
-        e.commit();
-
-        //Kullanıcı  twitter dan çıkış yaptıgında, send, güncelleme durumu gibi arayuz elemanlarını gizledim
-        btnLogoutTwitter.setVisibility(View.GONE);
-        btnUpdateStatus.setVisibility(View.GONE);
-        btnGetTweets.setVisibility(View.GONE);
-        txtUpdate.setVisibility(View.GONE);
-        lblUpdate.setVisibility(View.GONE);
-        lblUserName.setText("");
-        lblUserName.setVisibility(View.GONE);
-        //ve login butonunu görünür yaptım
-        btnLoginTwitter.setVisibility(View.VISIBLE);
-    }
-
-    private boolean isTwitterLoggedInAlready() {
-
-        return mSharedPreferences.getBoolean(PREF_KEY_TWITTER_LOGIN, false);
-    }
-
-    protected void onResume() {
-        super.onResume();
-    }
-
+    /**
+     * Twitter kullanıcısının, durum yazısını gönderen sınıf
+     */
     class updateTwitterStatus extends AsyncTask<String, String, String> {
+        String send = share_txt.getText().toString();
 
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            pDialog = new ProgressDialog(YaziEkle.this);
+            pDialog = new ProgressDialog(ForPaylasim.this);
+            pDialog.setMessage(send);
             pDialog.setMessage("Durum mesajı gönderiliyor...");
             pDialog.setIndeterminate(false);
             pDialog.setCancelable(false);
@@ -411,8 +507,39 @@ public class YaziEkle extends AppCompatActivity {
 
     }
 
+    /**
+     * Kullanıcı twitter dan logout(çıkış) yapmasını saglayan metod
+     * It will just clear the application shared preferences
+     */
+    private void logoutFromTwitter() {
+        // Token ve login gibi değişken değerlerini temizledik(sildik)
+        SharedPreferences.Editor e = mSharedPreferences.edit();
+        e.remove(PREF_KEY_OAUTH_TOKEN);
+        e.remove(PREF_KEY_OAUTH_SECRET);
+        e.remove(PREF_KEY_TWITTER_LOGIN);
+        e.commit();
 
+        //Kullanıcı  twitter dan çıkış yaptıgında, send, güncelleme durumu gibi arayuz elemanlarını gizledim
+        btnLogoutTwitter.setVisibility(View.GONE);
+        btnUpdateStatus.setVisibility(View.GONE);
+        btnGetTweets.setVisibility(View.GONE);
+        txtUpdate.setVisibility(View.GONE);
+        lblUpdate.setVisibility(View.GONE);
+        lblUserName.setText("");
+        lblUserName.setVisibility(View.GONE);
+        //ve login butonunu görünür yaptım
+        btnLoginTwitter.setVisibility(View.VISIBLE);
+    }
+
+
+    private boolean isTwitterLoggedInAlready() {
+
+        return mSharedPreferences.getBoolean(PREF_KEY_TWITTER_LOGIN, false);
+    }
+
+    protected void onResume() {
+        super.onResume();
+    }
 
 
 }
-

@@ -68,6 +68,8 @@ public class NewYaziEkle extends AppCompatActivity {
                     public boolean onNavigationItemSelected(MenuItem menuItem) {
                         // set item as selected to persist highlight
                         menuItem.setChecked(true);
+
+
                         int id = menuItem.getItemId();
                         // close drawer when item is tapped
 
@@ -84,6 +86,11 @@ public class NewYaziEkle extends AppCompatActivity {
                             case R.id.navigation_item_2:
                                 intent = new Intent(NewYaziEkle.this, ForGps.class);
 
+                                startActivity(intent);
+                                break;
+
+                            case R.id.navigation_item_3:
+                                intent = new Intent(NewYaziEkle.this, ForPaylasim.class);
                                 startActivity(intent);
                                 break;
 
@@ -119,4 +126,6 @@ public class NewYaziEkle extends AppCompatActivity {
 
 
     }
+
+
 }

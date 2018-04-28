@@ -5,10 +5,10 @@
     <string name="action_play_next">Play Next</string>
     <string name="backdrop_title">LOVE MUSICS</string>
     <string name="backdrop_subtitle">This season top 20 music</string>
-    <string name="facebook_app_id">191141724982070</string>
-    <string name="fb_login_protocol_scheme">fb191141724982070</string>
+    <string name="facebook_app_id">404737766664960</string>
+    <string name="fb_login_protocol_scheme">fb404737766664960</string>
     <string name="title_activity_get_tweets">GetTweets</string>
-
+    <string name="KeyHash">KEYHASH</string>
     <string-array name="menu">
         <item>ALARM</item>
         <item>GPS</item>
