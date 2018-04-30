@@ -133,6 +133,14 @@ public class NewYaziEkle extends AppCompatActivity {
                                 startActivity(intent);
                                 break;
 
+                            case R.id.navigation_item_5:
+
+
+                                intent = new Intent(NewYaziEkle.this, Forsquare.class);
+
+                                startActivity(intent);
+                                break;
+
 
                         }
 

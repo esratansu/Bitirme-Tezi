@@ -15,8 +15,12 @@
             android:title="PAYLAŞIM" />
         <item
             android:id="@+id/navigation_item_4"
-            android:icon="@drawable/ic_share"
+            android:icon="@drawable/ic_featured"
             android:title="REPOSITORY" />
 
+        <item
+            android:id="@+id/navigation_item_5"
+            android:icon="@drawable/ic_gps"
+            android:title="YAKINLARDA NERELER VAR?" />
     </group>
 </menu>

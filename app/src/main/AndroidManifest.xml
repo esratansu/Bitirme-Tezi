@@ -60,7 +60,8 @@
             android:authorities="com.facebook.app.FacebookContentProvider404737766664960"
             android:exported="true" />
 
-        <activity android:name=".Repository"></activity>
+        <activity android:name=".Repository" />
+        <activity android:name=".Forsquare"></activity>
     </application>
 
 </manifest>
