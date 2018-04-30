@@ -32,6 +32,7 @@ import java.util.List;
 import asus.com.example.asus.cardview.Album;
 import asus.com.example.asus.cardview.R;
 
+import static android.R.attr.id;
 import static android.provider.AlarmClock.EXTRA_MESSAGE;
 
 public class MainActivity extends AppCompatActivity {
@@ -117,7 +118,7 @@ public class MainActivity extends AppCompatActivity {
     /**
      * Adding few albums for testing
      */
-    private void prepareAlbums() {
+    public void prepareAlbums() {
         int[] covers = new int[]{
                 R.drawable.january,
                 R.drawable.february,
@@ -131,6 +132,7 @@ public class MainActivity extends AppCompatActivity {
                 R.drawable.october,
                 R.drawable.november,
                 R.drawable.december};
+
 
         Album a = new Album("JANUARY", 31, covers[0]);
         albumList.add(a);
@@ -168,7 +170,9 @@ public class MainActivity extends AppCompatActivity {
         a = new Album("DECEMBER", 31, covers[11]);
         albumList.add(a);
 
+
         adapter.notifyDataSetChanged();
+
     }
 
 
@@ -229,6 +233,7 @@ public class MainActivity extends AppCompatActivity {
 
         Intent intent = new Intent(this, MesajGosterActivity.class);
         ImageView editText = (ImageView) findViewById(R.id.thumbnail);
+
         startActivity(intent);
     }
 

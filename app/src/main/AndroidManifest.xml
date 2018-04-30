@@ -6,7 +6,6 @@
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
-
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -40,7 +39,6 @@
             </intent-filter>
         </activity>
 
-
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyCPGs7O9rt4Zl35go55QERu9gDs1r4eTe4" />
@@ -49,19 +47,20 @@
         <activity android:name=".YaziEkle" />
         <activity android:name=".NewYaziEkle" />
         <activity android:name=".ForAlarm" />
-
         <activity
             android:name=".GetTweets"
             android:label="@string/title_activity_get_tweets" />
         <activity android:name=".ForGps" />
-        <activity android:name=".ForPaylasim"></activity>
+        <activity android:name=".ForPaylasim" />
+
         <receiver android:name=".AlarmReceiver" />
+
         <provider
             android:name="com.facebook.FacebookContentProvider"
             android:authorities="com.facebook.app.FacebookContentProvider404737766664960"
             android:exported="true" />
 
-
+        <activity android:name=".Repository"></activity>
     </application>
 
 </manifest>

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">CardView</string>
+    <string name="app_name"> </string>
     <string name="action_settings">Settings</string>
     <string name="action_add_favourite">Add to Favourites</string>
     <string name="action_play_next">Play Next</string>
@@ -8,7 +8,7 @@
     <string name="facebook_app_id">404737766664960</string>
     <string name="fb_login_protocol_scheme">fb404737766664960</string>
     <string name="title_activity_get_tweets">GetTweets</string>
-    <string name="KeyHash">KEYHASH</string>
+    <string name="days">PAZARTESİ    SALI    ÇARŞAMBA    PERŞEMBE    CUMA  CUMARTESİ PAZAR</string>
     <string-array name="menu">
         <item>ALARM</item>
         <item>GPS</item>

@@ -3,15 +3,15 @@ package asus.com.example.asus.cardview;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
-import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.Toast;
+import android.widget.Button;
+import android.widget.EditText;
 
 /**
  * Created by ASUS on 26.04.2018.
@@ -20,11 +20,33 @@ import android.widget.Toast;
 public class NewYaziEkle extends AppCompatActivity {
 
     private DrawerLayout mDrawerLayout;
+    private ActionBarDrawerToggle nToggle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.new_yazi_ekle);
+
+        final EditText blokYazi = (EditText) findViewById(R.id.editBlok);
+
+        Button button = (Button) findViewById(R.id.save);
+
+
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Veritabani veritabani = new Veritabani(NewYaziEkle.this);// Veritababnını tanımlamm gerkir.
+                veritabani.VeriEkle(blokYazi.getText().toString());
+
+
+                String s = blokYazi.getText().toString();
+                Intent i = new Intent(getApplicationContext(), ForPaylasim.class);
+                i.putExtra("send_string", s);
+            }
+        });
+
+
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -33,6 +55,12 @@ public class NewYaziEkle extends AppCompatActivity {
         actionbar.setHomeAsUpIndicator(R.drawable.ic_menu);
         NavigationView navigationView = findViewById(R.id.nav_view);
         mDrawerLayout = findViewById(R.id.drawer_layout);
+
+        nToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.drawer_open, R.string.drawer_close);
+
+        mDrawerLayout.addDrawerListener(nToggle);
+        nToggle.syncState();
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         mDrawerLayout.addDrawerListener(
                 new DrawerLayout.DrawerListener() {
@@ -90,7 +118,18 @@ public class NewYaziEkle extends AppCompatActivity {
                                 break;
 
                             case R.id.navigation_item_3:
+
+
                                 intent = new Intent(NewYaziEkle.this, ForPaylasim.class);
+
+                                startActivity(intent);
+                                break;
+
+                            case R.id.navigation_item_4:
+
+
+                                intent = new Intent(NewYaziEkle.this, Repository.class);
+
                                 startActivity(intent);
                                 break;
 
@@ -106,6 +145,8 @@ public class NewYaziEkle extends AppCompatActivity {
                         return true;
                     }
                 });
+
+
     }
 
 
@@ -114,8 +155,13 @@ public class NewYaziEkle extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
+        if (nToggle.onOptionsItemSelected(item)) {
 
-        switch (item.getItemId()) {
+
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+        /* switch (item.getItemId()) {
 
             case android.R.id.home:
                 mDrawerLayout.openDrawer(GravityCompat.START);
@@ -123,7 +169,7 @@ public class NewYaziEkle extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
-
+*/
 
     }
 

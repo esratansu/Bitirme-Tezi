@@ -65,6 +65,26 @@ public class Veritabani extends SQLiteOpenHelper {
 
     }
 
+    //dinamik oluyor listler.
+    public List<String> VeriListele() {
+
+
+        List<String> veriler = new ArrayList<String>();
+        SQLiteDatabase db = this.getWritableDatabase();
+        String[] sütunlar = {KITAP_ID, KITAP_ADI, KITAP_TEL};
+
+
+        Cursor cursor = db.query(TABLE_NAME, sütunlar, null, null, null, null, null, null);
+        while (cursor.moveToNext()) {
+            veriler.add(cursor.getInt(0) + " - " + cursor.getString(1) + " - " + cursor.getString(2));   //sütunlar stringinde hangi sırayla tanımlamışsam o sırayla alırım.
+
+        }
+        db.close();
+        return veriler;
+
+
+    }
+
 
 
 }

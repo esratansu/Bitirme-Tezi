@@ -41,6 +41,7 @@ import twitter4j.auth.RequestToken;
 import twitter4j.conf.Configuration;
 import twitter4j.conf.ConfigurationBuilder;
 
+import static asus.com.example.asus.cardview.R.id.edit_share;
 import static asus.com.example.asus.cardview.R.id.txt_user_name;
 
 
@@ -128,12 +129,11 @@ public class ForPaylasim extends AppCompatActivity {
 
         loginButton = (LoginButton) findViewById(R.id.login_button);
 
-        share_txt = (EditText) findViewById(R.id.edit_share);
+        share_txt = (EditText) findViewById(edit_share);
 
         share_button = (Button) findViewById(R.id.share_button);
 
         loginButton.setReadPermissions(Arrays.asList("public_profile ", "user_friends", "email"));
-
 
         loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
@@ -233,14 +233,18 @@ public class ForPaylasim extends AppCompatActivity {
         if (!isTwitterLoggedInAlready()) {
             //Hesabına giriş yapmamış durumunda Login butonunu görünür yaptım
             btnLoginTwitter.setVisibility(View.VISIBLE);
+
         } else {
+            String send = share_txt.getText().toString();
             //Logout durumu
             // login button gizli
             btnLoginTwitter.setVisibility(View.GONE);
 
             //Update Twitter ve Get Tweets ile ilgili arayüz elemanlarını görünür yaptım
+
             lblUpdate.setVisibility(View.VISIBLE);
             txtUpdate.setVisibility(View.VISIBLE);
+            txtUpdate.setText(send);
             btnUpdateStatus.setVisibility(View.VISIBLE);
             btnGetTweets.setVisibility(View.VISIBLE);
             btnLogoutTwitter.setVisibility(View.VISIBLE);
@@ -354,27 +358,7 @@ public class ForPaylasim extends AppCompatActivity {
 
     }
 
-   /* private void shareToWall() {
 
-        String send = share_txt.getText().toString();
-
-
-        if(shareDialog.canShow(ShareLinkContent.class))
-        {
-            ShareLinkContent shareLinkContent = new ShareLinkContent.Builder()
-                    .setQuote(send)
-                    .setContentUrl(Uri.parse(" "))
-                    .setContentDescription("Facebook Entegrasyonu Tamamlandı"+" "+send)
-                    .build();
-
-            shareDialog.show(shareLinkContent);
-        }
-
-
-
-
-    }
-*/
 
 
     //KULLANILAN METOTLAR
@@ -450,13 +434,12 @@ public class ForPaylasim extends AppCompatActivity {
      * Twitter kullanıcısının, durum yazısını gönderen sınıf
      */
     class updateTwitterStatus extends AsyncTask<String, String, String> {
-        String send = share_txt.getText().toString();
+
 
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
             pDialog = new ProgressDialog(ForPaylasim.this);
-            pDialog.setMessage(send);
             pDialog.setMessage("Durum mesajı gönderiliyor...");
             pDialog.setIndeterminate(false);
             pDialog.setCancelable(false);
