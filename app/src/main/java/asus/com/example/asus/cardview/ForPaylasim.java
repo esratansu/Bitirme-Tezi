@@ -48,23 +48,25 @@ import static asus.com.example.asus.cardview.R.id.txt_user_name;
 public class ForPaylasim extends AppCompatActivity {
 
 
+    static final String PREF_KEY_OAUTH_TOKEN = "2381876837-IDIOT0Zkjfckpe93za0HWzGu1TM8O2TM61vCPHZ";
+    static final String PREF_KEY_OAUTH_SECRET = "qia3xVlFHpU6lJEuJKidaMvK1y0XaUHJbHVx1m9B1rwvy";
+    static final String PREF_KEY_TWITTER_LOGIN = "isTwitterLogedIn";
+    static final String TWITTER_CALLBACK_URL = "oauth://t4jsample";
+    // Twitter oauth urls
+    static final String URL_TWITTER_AUTH = "auth_url";
+    static final String URL_TWITTER_OAUTH_VERIFIER = "oauth_verifier";
+    static final String URL_TWITTER_OAUTH_TOKEN = "oauth_token";
     /**
      * Android uygulamasına , Twitter uygulamasını entegre etmek için, daha önce oluşturdugumuz
      * twitter uygulamasının bilgilerini değişkenlere atadık..
      */
     static String TWITTER_CONSUMER_KEY = "I2hwwguaN1HBMKlWFZK1UAj1R";
     static String TWITTER_CONSUMER_SECRET = "L4qDnjEwWTv6u6A3s623zklpgTMUAMjXZX8EhO7mclYkJeyDxC";
-
-    static final String PREF_KEY_OAUTH_TOKEN = "2381876837-IDIOT0Zkjfckpe93za0HWzGu1TM8O2TM61vCPHZ";
-    static final String PREF_KEY_OAUTH_SECRET = "qia3xVlFHpU6lJEuJKidaMvK1y0XaUHJbHVx1m9B1rwvy";
-    static final String PREF_KEY_TWITTER_LOGIN = "isTwitterLogedIn";
-
-    static final String TWITTER_CALLBACK_URL = "oauth://t4jsample";
-    // Twitter oauth urls
-    static final String URL_TWITTER_AUTH = "auth_url";
-    static final String URL_TWITTER_OAUTH_VERIFIER = "oauth_verifier";
-    static final String URL_TWITTER_OAUTH_TOKEN = "oauth_token";
-
+    // Twitter
+    private static Twitter twitter;
+    private static RequestToken requestToken;
+    // Shared Preferences
+    private static SharedPreferences mSharedPreferences;
     // Login button
     Button btnLoginTwitter;
     // Update status button
@@ -78,24 +80,12 @@ public class ForPaylasim extends AppCompatActivity {
     // lbl update
     TextView lblUpdate;
     TextView lblUserName;
-
     // Progress dialog
     ProgressDialog pDialog;
-
-    // Twitter
-    private static Twitter twitter;
-    private static RequestToken requestToken;
-
-    // Shared Preferences
-    private static SharedPreferences mSharedPreferences;
-
-    // Internet Connection detector
-    private ConnectionDetector cd;
-
     // Alert Dialog Manager
     AlertDialogManager alert = new AlertDialogManager();
-
-
+    // Internet Connection detector
+    private ConnectionDetector cd;
     //Facebook için
     private LoginButton loginButton;
     private CallbackManager callbackManager;
@@ -235,7 +225,7 @@ public class ForPaylasim extends AppCompatActivity {
             btnLoginTwitter.setVisibility(View.VISIBLE);
 
         } else {
-            String send = share_txt.getText().toString();
+
             //Logout durumu
             // login button gizli
             btnLoginTwitter.setVisibility(View.GONE);
@@ -244,7 +234,6 @@ public class ForPaylasim extends AppCompatActivity {
 
             lblUpdate.setVisibility(View.VISIBLE);
             txtUpdate.setVisibility(View.VISIBLE);
-            txtUpdate.setText(send);
             btnUpdateStatus.setVisibility(View.VISIBLE);
             btnGetTweets.setVisibility(View.VISIBLE);
             btnLogoutTwitter.setVisibility(View.VISIBLE);
@@ -268,6 +257,11 @@ public class ForPaylasim extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
+
+
+                //      shareTwitter(status);
+
+
                 //Kullanıcının Twitter 'a  göndermek istedigi yazıyı  değişkene atadım
 
 
@@ -359,8 +353,6 @@ public class ForPaylasim extends AppCompatActivity {
     }
 
 
-
-
     //KULLANILAN METOTLAR
 
     //SADECE BU FACE İÇİN
@@ -380,6 +372,49 @@ public class ForPaylasim extends AppCompatActivity {
 
 
     }
+    /*
+
+    private void shareTwitter(String message){
+
+        Intent tweetIntent = new Intent(Intent.ACTION_SEND);
+        tweetIntent.putExtra(Intent.EXTRA_TEXT,message);
+        tweetIntent.setType("text/plain");
+
+        PackageManager packManager = getPackageManager();
+        List<ResolveInfo> resolvedInfoList = packManager.queryIntentActivities(tweetIntent, PackageManager.MATCH_DEFAULT_ONLY);
+
+        boolean resolved = false;
+        for (ResolveInfo resolveInfo : resolvedInfoList) {
+            if (resolveInfo.activityInfo.packageName.startsWith("com.twitter.android")) {
+                tweetIntent.setClassName(
+                        resolveInfo.activityInfo.packageName,
+                        resolveInfo.activityInfo.name);
+                resolved = true;
+                break;
+            }
+        }
+        if (resolved) {
+            startActivity(tweetIntent);
+        } else {
+            Intent i = new Intent();
+            i.putExtra(Intent.EXTRA_TEXT, message);
+            i.setAction(Intent.ACTION_VIEW);
+            i.setData(Uri.parse("https://twitter.com/intent/tweet?text=" + urlEncode(message)));
+            startActivity(i);
+            Toast.makeText(this, "Twitter app isn't found", Toast.LENGTH_LONG).show();
+        }
+    }
+
+    private String urlEncode(String s) {
+        try {
+            return URLEncoder.encode(s, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            Log.wtf(TAG, "UTF-8 should always be supported", e);
+            return "";
+        }
+    }
+
+    */
 
     /**
      * Twitter hesabına login olmasını saglayan metod
@@ -428,6 +463,39 @@ public class ForPaylasim extends AppCompatActivity {
         startActivity(i);
 
 
+    }
+
+    /**
+     * Kullanıcı twitter dan logout(çıkış) yapmasını saglayan metod
+     * It will just clear the application shared preferences
+     */
+    private void logoutFromTwitter() {
+        // Token ve login gibi değişken değerlerini temizledik(sildik)
+        SharedPreferences.Editor e = mSharedPreferences.edit();
+        e.remove(PREF_KEY_OAUTH_TOKEN);
+        e.remove(PREF_KEY_OAUTH_SECRET);
+        e.remove(PREF_KEY_TWITTER_LOGIN);
+        e.commit();
+
+        //Kullanıcı  twitter dan çıkış yaptıgında, send, güncelleme durumu gibi arayuz elemanlarını gizledim
+        btnLogoutTwitter.setVisibility(View.GONE);
+        btnUpdateStatus.setVisibility(View.GONE);
+        btnGetTweets.setVisibility(View.GONE);
+        txtUpdate.setVisibility(View.GONE);
+        lblUpdate.setVisibility(View.GONE);
+        lblUserName.setText("");
+        lblUserName.setVisibility(View.GONE);
+        //ve login butonunu görünür yaptım
+        btnLoginTwitter.setVisibility(View.VISIBLE);
+    }
+
+    private boolean isTwitterLoggedInAlready() {
+
+        return mSharedPreferences.getBoolean(PREF_KEY_TWITTER_LOGIN, false);
+    }
+
+    protected void onResume() {
+        super.onResume();
     }
 
     /**
@@ -488,40 +556,6 @@ public class ForPaylasim extends AppCompatActivity {
             });
         }
 
-    }
-
-    /**
-     * Kullanıcı twitter dan logout(çıkış) yapmasını saglayan metod
-     * It will just clear the application shared preferences
-     */
-    private void logoutFromTwitter() {
-        // Token ve login gibi değişken değerlerini temizledik(sildik)
-        SharedPreferences.Editor e = mSharedPreferences.edit();
-        e.remove(PREF_KEY_OAUTH_TOKEN);
-        e.remove(PREF_KEY_OAUTH_SECRET);
-        e.remove(PREF_KEY_TWITTER_LOGIN);
-        e.commit();
-
-        //Kullanıcı  twitter dan çıkış yaptıgında, send, güncelleme durumu gibi arayuz elemanlarını gizledim
-        btnLogoutTwitter.setVisibility(View.GONE);
-        btnUpdateStatus.setVisibility(View.GONE);
-        btnGetTweets.setVisibility(View.GONE);
-        txtUpdate.setVisibility(View.GONE);
-        lblUpdate.setVisibility(View.GONE);
-        lblUserName.setText("");
-        lblUserName.setVisibility(View.GONE);
-        //ve login butonunu görünür yaptım
-        btnLoginTwitter.setVisibility(View.VISIBLE);
-    }
-
-
-    private boolean isTwitterLoggedInAlready() {
-
-        return mSharedPreferences.getBoolean(PREF_KEY_TWITTER_LOGIN, false);
-    }
-
-    protected void onResume() {
-        super.onResume();
     }
 
 
