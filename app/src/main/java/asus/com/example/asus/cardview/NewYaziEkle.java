@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 /**
  * Created by ASUS on 26.04.2018.
@@ -21,12 +22,18 @@ public class NewYaziEkle extends AppCompatActivity {
 
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle nToggle;
-
+    TextView datepicker;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.new_yazi_ekle);
+
+        datepicker = (TextView) findViewById(R.id.datepicker);
+        Bundle extras = getIntent().getExtras();
+        String datevalue = extras.getString("send_date");
+        datepicker.setText(datevalue);
+
 
         final EditText blokYazi = (EditText) findViewById(R.id.editBlok);
 
