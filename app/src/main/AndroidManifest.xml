@@ -61,7 +61,8 @@
             android:exported="true" />
 
         <activity android:name=".Repository" />
-        <activity android:name=".Forsquare"></activity>
+        <activity android:name=".Forsquare" />
+        <activity android:name=".ForWeather"></activity>
     </application>
 
 </manifest>

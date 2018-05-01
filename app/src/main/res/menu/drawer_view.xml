@@ -22,5 +22,9 @@
             android:id="@+id/navigation_item_5"
             android:icon="@drawable/ic_gps"
             android:title="YAKINLARDA NERELER VAR?" />
+        <item
+            android:id="@+id/navigation_item_6"
+            android:icon="@drawable/ic_filter_drama"
+            android:title="HAVADAN HABERİN VAR MI?" />
     </group>
 </menu>

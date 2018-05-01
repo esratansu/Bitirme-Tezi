@@ -140,6 +140,13 @@ public class NewYaziEkle extends AppCompatActivity {
 
                                 startActivity(intent);
                                 break;
+                            case R.id.navigation_item_6:
+
+
+                                intent = new Intent(NewYaziEkle.this, ForWeather.class);
+
+                                startActivity(intent);
+                                break;
 
 
                         }
