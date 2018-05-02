@@ -189,16 +189,15 @@ public class ForPaylasim extends AppCompatActivity {
 
         //ŞİMDİ TWİTTER
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        Intent intent = getIntent();
 
-        cd = new ConnectionDetector(getApplicationContext());
 
-        // Android cihazın interneti olup olmadığına kontrol yaptık
-        if (!cd.isConnectingToInternet()) {
+      /*  if (!cd.isConnectingToInternet()) {
 
             alert.showAlertDialog(ForPaylasim.this, "Internet bağlanma hatası",
                     "Lütfen internet bağlantınızı kontrol edin", false);
             return;
-        }
+        }*/
 
         // TWITTER_CONSUMER_KEY ve TWITTER_CONSUMER_SECRET değerlerini değişkene atanıp,atanmadığı kontrolu yaptım
         if (TWITTER_CONSUMER_KEY.trim().length() == 0 || TWITTER_CONSUMER_SECRET.trim().length() == 0) {
@@ -206,6 +205,7 @@ public class ForPaylasim extends AppCompatActivity {
             alert.showAlertDialog(ForPaylasim.this, "Twitter oAuth tokens", "İlk önce  twitter oauth tokens değerlerini değişkene atayın!", false);
             return;
         }
+
 
         //Arayuz elemanlarını tanımladım..
         btnLoginTwitter = (Button) findViewById(R.id.btnLoginTwitter);
@@ -216,6 +216,7 @@ public class ForPaylasim extends AppCompatActivity {
         lblUpdate = (TextView) findViewById(R.id.lblUpdate);
         lblUserName = (TextView) findViewById(R.id.lblUserName);
 
+
         mSharedPreferences = getApplicationContext().getSharedPreferences(
                 "MyPref", 0);
 
@@ -223,15 +224,12 @@ public class ForPaylasim extends AppCompatActivity {
         if (!isTwitterLoggedInAlready()) {
             //Hesabına giriş yapmamış durumunda Login butonunu görünür yaptım
             btnLoginTwitter.setVisibility(View.VISIBLE);
-
         } else {
-
             //Logout durumu
             // login button gizli
             btnLoginTwitter.setVisibility(View.GONE);
 
             //Update Twitter ve Get Tweets ile ilgili arayüz elemanlarını görünür yaptım
-
             lblUpdate.setVisibility(View.VISIBLE);
             txtUpdate.setVisibility(View.VISIBLE);
             btnUpdateStatus.setVisibility(View.VISIBLE);
@@ -239,9 +237,26 @@ public class ForPaylasim extends AppCompatActivity {
             btnLogoutTwitter.setVisibility(View.VISIBLE);
         }
 
-        /**
-         * Twitter login butonuna tıklandığında çalısacak kod
-         * */
+        mSharedPreferences = getApplicationContext().getSharedPreferences(
+                "MyPref", 0);
+
+        //Kullanıcının Twitter hesabını giriş yapıp yapmama durumuna göre , arayuz elemanlarını görünür ve görünmez yaptım
+        if (!isTwitterLoggedInAlready()) {
+            //Hesabına giriş yapmamış durumunda Login butonunu görünür yaptım
+            btnLoginTwitter.setVisibility(View.VISIBLE);
+        } else {
+            //Logout durumu
+            // login button gizli
+            btnLoginTwitter.setVisibility(View.GONE);
+
+            //Update Twitter ve Get Tweets ile ilgili arayüz elemanlarını görünür yaptım
+            lblUpdate.setVisibility(View.VISIBLE);
+            txtUpdate.setVisibility(View.VISIBLE);
+            btnUpdateStatus.setVisibility(View.VISIBLE);
+            btnGetTweets.setVisibility(View.VISIBLE);
+            btnLogoutTwitter.setVisibility(View.VISIBLE);
+        }
+
         btnLoginTwitter.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -257,14 +272,7 @@ public class ForPaylasim extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-
-
-                //      shareTwitter(status);
-
-
                 //Kullanıcının Twitter 'a  göndermek istedigi yazıyı  değişkene atadım
-
-
                 String status = txtUpdate.getText().toString();
 
                 //Edittext den gelen değeri boşmu kontrolu yapıldı ve değer updateTwitterStatus metoduna gonderildi
@@ -277,9 +285,8 @@ public class ForPaylasim extends AppCompatActivity {
                 }
             }
         });
-        /**
-         * Get Tweets butonuna tıklandığında çalısacak kod
-         * */
+
+
         btnGetTweets.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -287,9 +294,6 @@ public class ForPaylasim extends AppCompatActivity {
             }
         });
 
-        /**
-         * Logout butonuna tıklandığında çalısacak kod
-         * */
         btnLogoutTwitter.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -299,10 +303,6 @@ public class ForPaylasim extends AppCompatActivity {
             }
         });
 
-        /**
-         * Bu kontrol,1 kere twitter sayfasına yönlendiriyor, hesap giriş bilgisi dogruysa,
-         * Android uygulamasnın geri donuş yapılmasına saglayan bölüm
-         * */
         if (!isTwitterLoggedInAlready()) {
             Uri uri = getIntent().getData();
             if (uri != null && uri.toString().startsWith(TWITTER_CALLBACK_URL)) {

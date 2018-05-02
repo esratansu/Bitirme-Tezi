@@ -14,9 +14,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-/**
- * Created by ASUS on 26.04.2018.
- */
 
 public class NewYaziEkle extends AppCompatActivity {
 

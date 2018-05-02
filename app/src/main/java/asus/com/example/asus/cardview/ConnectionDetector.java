@@ -4,9 +4,6 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
-/**
- * Created by ASUS on 18.04.2018.
- */
 
 public class ConnectionDetector {
     private Context _context;
