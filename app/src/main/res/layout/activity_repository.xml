@@ -8,11 +8,12 @@
 
     <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
         <ListView
             android:id="@+id/veriler"
-            android:layout_width="360dp"
+            android:layout_width="380dp"
             android:layout_height="551dp"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"

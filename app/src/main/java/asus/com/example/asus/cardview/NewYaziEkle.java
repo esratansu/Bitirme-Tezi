@@ -13,18 +13,28 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import java.util.Date;
 
 
 public class NewYaziEkle extends AppCompatActivity {
 
+    EditText blokYazi;
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle nToggle;
     TextView datepicker;
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+
+    {
+
+
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.new_yazi_ekle);
+
+        blokYazi = (EditText) findViewById(R.id.editBlok);
 
         datepicker = (TextView) findViewById(R.id.datepicker);
         Bundle extras = getIntent().getExtras();
@@ -32,16 +42,16 @@ public class NewYaziEkle extends AppCompatActivity {
         datepicker.setText(datevalue);
 
 
-        final EditText blokYazi = (EditText) findViewById(R.id.editBlok);
-
         Button button = (Button) findViewById(R.id.save);
+
 
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 Veritabani veritabani = new Veritabani(NewYaziEkle.this);// Veritababnını tanımlamm gerkir.
-                veritabani.VeriEkle(blokYazi.getText().toString());
+                veritabani.VeriEkle(blokYazi.getText().toString(), datepicker.getText().toString());
 
 
                 String s = blokYazi.getText().toString();
@@ -193,4 +203,22 @@ public class NewYaziEkle extends AppCompatActivity {
     }
 
 
+
+    /* Bu method önceki repositorylere tıklanınca onun ekranda tekrar edit text e getirilmesi için.
+
+    public void yeniRepo(String str) {
+
+        Toast.makeText(NewYaziEkle.this, "Alarm Çalıyor! Artık Uyan!", Toast.LENGTH_LONG).show();
+        Bundle repoInt = getIntent().getExtras();
+        String gelenRepo = repoInt.getString("send_repo");
+        Toast.makeText(NewYaziEkle.this, gelenRepo , Toast.LENGTH_LONG).show();
+       Toast.makeText(NewYaziEkle.this, "Alarm Çalıyor! Artık Uyan!", Toast.LENGTH_LONG).show();
+     Bundle repoInt = getIntent().getExtras();
+        String gelenRepo = repoInt.getString("send_repo");
+        blokYazi.setText(gelenRepo);
+
+
+
+    }
+     */
 }

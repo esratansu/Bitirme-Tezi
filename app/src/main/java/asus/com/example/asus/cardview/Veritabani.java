@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import static asus.com.example.asus.cardview.R.id.veriler;
@@ -55,10 +56,12 @@ public class Veritabani extends SQLiteOpenHelper {
 
     }
 
-    public void VeriEkle(String kitap_adi) {
+    public void VeriEkle(String kitap_adi, String date) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(KITAP_ADI, kitap_adi);
+        values.put(KITAP_TEL, date);
+
 
         db.insert(TABLE_NAME, null, values);
         db.close(); //Database Bağlantısını kapattık
