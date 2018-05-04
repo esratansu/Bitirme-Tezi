@@ -22,10 +22,21 @@
         <RelativeLayout
             android:layout_centerInParent="true"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:id="@+id/relative">
+
+            <EditText
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:hint="Please write the sentence you want to share..."
+                android:textAlignment="center"
+                android:id="@+id/edit_share"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content" />
 
             <com.facebook.login.widget.LoginButton
                 android:id="@+id/login_button"
+                android:layout_below="@+id/share_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
@@ -46,22 +57,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
-            <EditText
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
 
-                android:layout_below="@id/txt_user_name"
-                android:hint="Paylaşmak istediğiniz cümleyi yazınız.."
-                android:id="@+id/edit_share"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content" />
 
             <Button
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
-                android:layout_below="@id/edit_share"
+android:layout_below="@+id/edit_share"
 
-                android:text="PAYLAŞ"
+                android:text="SHARE"
                 android:textSize="20sp"
                 android:id="@+id/share_button"
                 android:layout_centerHorizontal="true"
@@ -73,18 +76,14 @@
 
         <RelativeLayout
             android:layout_width="fill_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:id="@+id/relative2"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="15dp">
 
 
-            <Button
-                android:id="@+id/btnLoginTwitter"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dip"
-                android:layout_marginRight="10dip"
-                android:layout_gravity="center"
-                android:layout_marginTop="30dip"
-                android:text="Login with Twitter" />
 
             <TextView
                 android:id="@+id/lblUserName"
@@ -141,6 +140,15 @@
                 android:layout_marginTop="50dip"
                 android:visibility="gone" />
 
+            <Button
+                android:id="@+id/btnLoginTwitter"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dip"
+                android:layout_marginRight="10dip"
+                android:layout_gravity="center"
+                android:layout_marginTop="30dip"
+                android:text="Login with Twitter" />
 
         </RelativeLayout>
 

@@ -53,10 +53,10 @@ public class NewYaziEkle extends AppCompatActivity {
                 Veritabani veritabani = new Veritabani(NewYaziEkle.this);// Veritababnını tanımlamm gerkir.
                 veritabani.VeriEkle(blokYazi.getText().toString(), datepicker.getText().toString());
 
-
+/*
                 String s = blokYazi.getText().toString();
                 Intent i = new Intent(getApplicationContext(), ForPaylasim.class);
-                i.putExtra("send_string", s);
+                i.putExtra("send_string", s);*/
             }
         });
 

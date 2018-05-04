@@ -45,6 +45,7 @@ import static asus.com.example.asus.cardview.R.id.edit_share;
 import static asus.com.example.asus.cardview.R.id.txt_user_name;
 
 
+
 public class ForPaylasim extends AppCompatActivity {
 
 

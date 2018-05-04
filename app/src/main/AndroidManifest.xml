@@ -30,7 +30,6 @@
                 <action android:name="android.intent.category.BROWSABLE" />
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
 
                 <data android:scheme="@string/fb_login_protocol_scheme" />
                 <data
@@ -38,6 +37,7 @@
                     android:scheme="oauth" />
             </intent-filter>
         </activity>
+
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
@@ -63,6 +63,15 @@
         <activity android:name=".Repository" />
         <activity android:name=".Forsquare" />
         <activity android:name=".ForWeather" />
+        <activity android:name=".SplashScreen">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+
+        </activity>
     </application>
 
 </manifest>

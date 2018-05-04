@@ -19,7 +19,7 @@ import android.widget.AdapterView.OnItemClickListener;
 
 import java.util.List;
 
-
+import static android.R.attr.value;
 
 
 public class MesajGosterActivity extends AppCompatActivity {
@@ -40,9 +40,12 @@ public class MesajGosterActivity extends AppCompatActivity {
                 intent.putExtra("send_date", date);
                 startActivity(intent);
 
+
             }
         });
 
     }
+
+
 
 }

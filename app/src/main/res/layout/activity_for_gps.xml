@@ -14,7 +14,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="Ayarlar" />
+        android:text="Settings" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -34,7 +34,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:textColor="@color/settings"
-            android:text="Bulunduğunuz Lokasyona Erişim İzni" />
+            android:text="Permission Access to Your Location" />
 
         <CheckBox
             android:id="@+id/checkBoxLocation"
@@ -49,7 +49,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:onClick="lokasyonEkleButonuSecildi"
-        android:text="Yeni Lokasyon Ekle" />
+        android:text="Add New Location" />
 
     <TextView
         android:id="@+id/textView4"
@@ -57,7 +57,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:textStyle="bold"
-        android:text="Lokasyonlar" />
+        android:text="Locations" />
 
     <ListView
         android:id="@+id/listView"
