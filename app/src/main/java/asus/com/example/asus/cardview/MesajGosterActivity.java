@@ -1,51 +1,73 @@
 package asus.com.example.asus.cardview;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.app.Activity;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.CalendarView;
-import android.widget.GridView;
-import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
-import android.view.View;
-import android.widget.AdapterView.OnItemClickListener;
 
 import java.util.List;
 
-import static android.R.attr.value;
-
 
 public class MesajGosterActivity extends AppCompatActivity {
-    // private asus.com.example.asus.cardview.AlbumsAdapter adapter;
-    //  private List<Album> albumList;
     CalendarView calendarView;
+    private asus.com.example.asus.cardview.AlbumsAdapter adapter;
+    private List<Album> albumList;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mesaj_goster);
 
+
         calendarView = (CalendarView) findViewById(R.id.calendar);
         calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
-                String date = (year + 1) + "/" + month + "/" + dayOfMonth;
-                Intent intent = new Intent(MesajGosterActivity.this, NewYaziEkle.class);
-                intent.putExtra("send_date", date);
-                startActivity(intent);
+                if (month == 4 && dayOfMonth == 2) {
+                    Intent intent = new Intent(MesajGosterActivity.this, NewYaziEkle.class);
+                    Toast.makeText(MesajGosterActivity.this, "DÜNYA SAMİMİYET GÜNÜMÜZ KUTLU OLSUN", Toast.LENGTH_LONG).show();
 
+                    String date = year + "/" + month + "/" + dayOfMonth;
+
+                    intent.putExtra("send_date", date);
+
+
+                    startActivity(intent);
+
+
+                } else if ((month == 2 && dayOfMonth == 17) || (month == 11 && dayOfMonth == 14) || (month == 7 && dayOfMonth == 30)) {
+
+                    Intent intent = new Intent(MesajGosterActivity.this, NewYaziEkle.class);
+                    Toast.makeText(MesajGosterActivity.this, "ALTIN KIZLARDAN BİRİNİN DOĞUM GÜNÜ,KUTLU OLSUN!!!", Toast.LENGTH_LONG).show();
+
+                    String date = year + "/" + month + "/" + dayOfMonth;
+
+                    intent.putExtra("send_date", date);
+
+
+                    startActivity(intent);
+
+
+                } else {
+                    String date = year + "/" + month + "/" + dayOfMonth;
+                    Intent intent = new Intent(MesajGosterActivity.this, NewYaziEkle.class);
+                    intent.putExtra("send_date", date);
+
+
+                    startActivity(intent);
+                }
 
             }
         });
 
+
     }
 
+    public void tost(String mesaj) {
+        Toast.makeText(this, mesaj, Toast.LENGTH_LONG).show();
+    }
 
 
 }

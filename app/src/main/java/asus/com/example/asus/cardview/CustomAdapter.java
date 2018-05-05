@@ -34,8 +34,7 @@ public class CustomAdapter extends BaseAdapter {
     ArrayList<HashMap<String, Object>> veri = new ArrayList<HashMap<String, Object>>();
 
     public CustomAdapter(Activity a, ArrayList<HashMap<String, Object>> veriler ) {
-        activity = a;
-        veri = veriler;
+
 
         inflater = (LayoutInflater)activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 

@@ -18,12 +18,13 @@ import java.util.ArrayList;
  * Created by ASUS on 26.04.2018.
  */
 
-public class CustomAdapteForGps extends BaseAdapter {
+public class CustomAdapterForGps extends BaseAdapter {
 
     ArrayList<Mekan> places;
     LayoutInflater layoutInflater;
 
-    public CustomAdapteForGps(Activity activity, ArrayList<Mekan> places) {
+
+    public CustomAdapterForGps(Activity activity, ArrayList<Mekan> places) {
         this.places = places;
         layoutInflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }

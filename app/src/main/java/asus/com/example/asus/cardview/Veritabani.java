@@ -2,15 +2,19 @@ package asus.com.example.asus.cardview;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import static android.support.v4.content.ContextCompat.startActivity;
 import static asus.com.example.asus.cardview.R.id.veriler;
+import static com.facebook.FacebookSdk.getApplicationContext;
 
 public class Veritabani extends SQLiteOpenHelper {
     private static final int DATABASE_VERSION = 1;
@@ -89,6 +93,23 @@ public class Veritabani extends SQLiteOpenHelper {
 
 
     }
+
+
+    public void deleteUser(Integer userId) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(TABLE_NAME, KITAP_ID + " = ?",
+                new String[]{String.valueOf(userId)});
+        Toast.makeText(getApplicationContext(), "Kayit Silindi", Toast.LENGTH_LONG).show();
+    }
+
+/*
+    protected void KayitSil(String id) {//sil metodu
+        SQLiteDatabase db=this.getReadableDatabase();//sqlite veritabani nesnesi
+        db.delete("db", "id" + "=" + id, null);//id degerine göre
+        Toast.makeText(getApplicationContext(), "Kayit Silindi" , Toast.LENGTH_LONG).show();//uyari mesaji
+        //silindikten sonra aktif olacak ekran
+    }*/
+
 
 
 

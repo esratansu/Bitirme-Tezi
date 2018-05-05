@@ -1,15 +1,17 @@
 package asus.com.example.asus.cardview;
 
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ListView;
-import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -25,7 +27,7 @@ public class Repository extends AppCompatActivity {
 
 
         final ListView listView = (ListView) findViewById(R.id.veriler);
-        MenuItem menuItem = (MenuItem) findViewById(R.id.navigation_item_4);
+        final MenuItem menuItem = (MenuItem) findViewById(R.id.navigation_item_4);
 
 
         Veritabani veritabani = new Veritabani(Repository.this);
@@ -43,28 +45,42 @@ public class Repository extends AppCompatActivity {
 
 Yerın new yazı eklenin benzerini yap.
 
-//Repositorideki Her bir itema Click eventi verdim.
+//Repositorideki Her bir itema Click eventi verdim. */
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
                 String repo = listView.getItemAtPosition(i).toString();  //Tıklanan itemdaki veriyi aldım.
-               Intent a = new Intent(getApplicationContext(), NewYaziEkle.class);
-               a.putExtra("send_repo",repo);
+                Intent a = new Intent(getApplicationContext(), NewYaziEkle.class);
+                a.putExtra("send_repo", repo);
 
 
-               Bu satırlar başka clasın içerisindeki metoda erişişm sağlar.
-
-            NewYaziEkle test= new NewYaziEkle();
-                //Gradebook taki mesajımızı çağırıyoruz
-                test.yeniRepo(repo);
+                // Bu satırlar başka clasın içerisindeki metoda erişişm sağlar.
 
 
                 startActivity(a);
 
             }
         });
-        */
+
+        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+
+
+                String str = (String) listView.getItemAtPosition(position);
+                int itemId = (int) listView.getItemIdAtPosition(position);
+                Veritabani veritabani = new Veritabani(Repository.this);// Veritababnını tanımlamm gerkir.
+                veritabani.deleteUser(itemId);
+                adapter.remove(str);
+
+
+                adapter.notifyDataSetChanged();
+
+
+                return true;
+            }
+        });
 
     }
 

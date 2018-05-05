@@ -15,6 +15,7 @@ public class Database extends SQLiteOpenHelper {
     private static final String PRIMARY_KEY = "id";
     private static final String PLACE_ID = "place_id";
 
+
     public Database(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
@@ -29,12 +30,6 @@ public class Database extends SQLiteOpenHelper {
         db.execSQL(CREATE_TABLE);
 
 
-
-       /* String sql_create_table="CREATE TABLE "+TABLE_NAME+"("+PRIMARY_KEY+" INTEGER PRIMARY KEY AUTOINCREMENT ," +
-                ""+PLACE_ID+" TEXT"+")";
-        db.execSQL(sql_create_table);
-
-        */
     }
 
     public void lokasyonIdEkle(String placeId) {
@@ -53,9 +48,11 @@ public class Database extends SQLiteOpenHelper {
 
     }
 
+
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
         onCreate(db);
     }
+
 }

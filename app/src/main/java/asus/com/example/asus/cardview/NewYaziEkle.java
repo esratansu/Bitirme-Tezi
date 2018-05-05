@@ -15,20 +15,18 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.Date;
-
 
 public class NewYaziEkle extends AppCompatActivity {
 
     EditText blokYazi;
+    TextView datepicker;
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle nToggle;
-    TextView datepicker;
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
 
     {
-
 
 
         super.onCreate(savedInstanceState);
@@ -36,30 +34,35 @@ public class NewYaziEkle extends AppCompatActivity {
 
         blokYazi = (EditText) findViewById(R.id.editBlok);
 
+        Button button = (Button) findViewById(R.id.save);
+
         datepicker = (TextView) findViewById(R.id.datepicker);
         Bundle extras = getIntent().getExtras();
         String datevalue = extras.getString("send_date");
         datepicker.setText(datevalue);
 
+        Bundle extra = getIntent().getExtras();
+        String gelenRepo = extra.getString("send_repo");
+        if (gelenRepo == " ") {
+            blokYazi.setText("");
 
-        Button button = (Button) findViewById(R.id.save);
+        } else {
 
+            blokYazi.setText(gelenRepo);
+
+        }
 
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Toast.makeText(NewYaziEkle.this, "The blog was saved.", Toast.LENGTH_SHORT).show();
                 Veritabani veritabani = new Veritabani(NewYaziEkle.this);// Veritababnını tanımlamm gerkir.
                 veritabani.VeriEkle(blokYazi.getText().toString(), datepicker.getText().toString());
 
-/*
-                String s = blokYazi.getText().toString();
-                Intent i = new Intent(getApplicationContext(), ForPaylasim.class);
-                i.putExtra("send_string", s);*/
+
             }
         });
-
 
 
         Toolbar toolbar = findViewById(R.id.toolbar);

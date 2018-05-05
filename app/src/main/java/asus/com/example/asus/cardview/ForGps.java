@@ -1,20 +1,17 @@
 package asus.com.example.asus.cardview;
 
-import android.app.Activity;
-import android.app.NotificationManager;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
-import android.provider.Settings;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
+import android.widget.AdapterView;
 import android.widget.CheckBox;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -32,13 +29,15 @@ import com.google.android.gms.location.places.ui.PlacePicker;
 
 import java.util.ArrayList;
 
+import static asus.com.example.asus.cardview.R.id.listView;
+
 public class ForGps extends AppCompatActivity implements
         GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener {
 
     private static final int RC_ACCESS_FINE_LOCATION = 1;
     private static final int RC_PLACE_PICKER = 2;
-    CustomAdapteForGps adapter;
+    CustomAdapterForGps adapter;
 
     GoogleApiClient mGoogleApiClient;
     ArrayList<Mekan> placeList = new ArrayList<Mekan>();
@@ -56,9 +55,26 @@ public class ForGps extends AppCompatActivity implements
                 .enableAutoManage(this, this)
                 .build();
 
-        ListView lv = (ListView) findViewById(R.id.listView);
-        adapter = new CustomAdapteForGps(ForGps.this, placeList);
+        ListView lv = (ListView) findViewById(listView);
+        adapter = new CustomAdapterForGps(ForGps.this, placeList);
         lv.setAdapter(adapter);
+        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                String adres = placeList.get(position).getAdres();
+
+                Intent i = new Intent(ForGps.this, GoogleMapsApi.class);
+
+
+                i.putExtra("send_loca", adres);
+
+                startActivity(i);
+
+
+            }
+        });
+
 
     }
 
@@ -84,6 +100,8 @@ public class ForGps extends AppCompatActivity implements
     }
 
     public void lokasyonEkleButonuSecildi(View view) {
+
+
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             Toast.makeText(this, "Lokasyona Erişim İznini Vermeniz Gerekiyor", Toast.LENGTH_SHORT).show();
             return;
@@ -99,8 +117,8 @@ public class ForGps extends AppCompatActivity implements
         } catch (Exception e) {
             Log.e("MainActivity", String.format("PlacePicker Exception: %s", e.getMessage()));
         }
-    }
 
+    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -110,21 +128,25 @@ public class ForGps extends AppCompatActivity implements
                 Toast.makeText(this, "Lokasyon Seçilmedi", Toast.LENGTH_SHORT).show();
                 return;
             }
+
             String secilenLokasyonId = secilenLokasyon.getId();
+
             veritabanınaEkle(secilenLokasyonId);
             placeIdListele();
+
+
         }
     }
 
 
-    private void veritabanınaEkle(String secilenLokasyonId) {
+    private void veritabanınaEkle(String id) {
         Database db = new Database(this);
-        db.lokasyonIdEkle(secilenLokasyonId);
+        db.lokasyonIdEkle(id);
 
     }
 
 
-    private void placeIdListele() {
+    public void placeIdListele() {
 
         placeList.clear();
         Database db = new Database(this);
@@ -165,4 +187,6 @@ public class ForGps extends AppCompatActivity implements
         Log.i("Main", "onConnectionFailed");
 
     }
+
+
 }

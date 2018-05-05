@@ -8,7 +8,9 @@
     <string name="facebook_app_id">404737766664960</string>
     <string name="fb_login_protocol_scheme">fb404737766664960</string>
     <string name="title_activity_get_tweets">GetTweets</string>
-    <string name="days">PAZARTESİ    SALI    ÇARŞAMBA    PERŞEMBE    CUMA  CUMARTESİ PAZAR</string>
+
+    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">
+AIzaSyCPGs7O9rt4Zl35go55QERu9gDs1r4eTe4</string>
     <string-array name="menu">
         <item>ALARM</item>
         <item>GPS</item>
