@@ -15,44 +15,29 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-
 public class NewYaziEkle extends AppCompatActivity {
-
     EditText blokYazi;
     TextView datepicker;
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle nToggle;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-
-    {
-
-
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.new_yazi_ekle);
-
         blokYazi = (EditText) findViewById(R.id.editBlok);
-
         Button button = (Button) findViewById(R.id.save);
-
         datepicker = (TextView) findViewById(R.id.datepicker);
         Bundle extras = getIntent().getExtras();
         String datevalue = extras.getString("send_date");
         datepicker.setText(datevalue);
-
         Bundle extra = getIntent().getExtras();
         String gelenRepo = extra.getString("send_repo");
         if (gelenRepo == " ") {
             blokYazi.setText("");
-
         } else {
-
             blokYazi.setText(gelenRepo);
-
         }
-
-
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -60,9 +45,9 @@ public class NewYaziEkle extends AppCompatActivity {
                 Veritabani veritabani = new Veritabani(NewYaziEkle.this);// Veritababnını tanımlamm gerkir.
                 veritabani.VeriEkle(blokYazi.getText().toString(), datepicker.getText().toString());
 
-
             }
         });
+
 
 
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -72,13 +57,10 @@ public class NewYaziEkle extends AppCompatActivity {
         actionbar.setHomeAsUpIndicator(R.drawable.ic_menu);
         NavigationView navigationView = findViewById(R.id.nav_view);
         mDrawerLayout = findViewById(R.id.drawer_layout);
-
         nToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.drawer_open, R.string.drawer_close);
-
         mDrawerLayout.addDrawerListener(nToggle);
         nToggle.syncState();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
         mDrawerLayout.addDrawerListener(
                 new DrawerLayout.DrawerListener() {
                     @Override
@@ -102,126 +84,55 @@ public class NewYaziEkle extends AppCompatActivity {
                     }
                 }
         );
-
-
 //TOGGLEDAN ITEM SEÇİLDİĞİNDE YAPILAN İŞLEMLER
-
-
         navigationView.setNavigationItemSelectedListener(
                 new NavigationView.OnNavigationItemSelectedListener() {
                     @Override
                     public boolean onNavigationItemSelected(MenuItem menuItem) {
                         // set item as selected to persist highlight
                         menuItem.setChecked(true);
-
-
                         int id = menuItem.getItemId();
                         // close drawer when item is tapped
-
                         //INTENT YÖNLENDİRME YAPILIYOR....
-
-
                         switch (id) {
                             case R.id.navigation_item_1:
                                 Intent intent = new Intent(NewYaziEkle.this, ForAlarm.class);
-
                                 startActivity(intent);
                                 break;
-
                             case R.id.navigation_item_2:
                                 intent = new Intent(NewYaziEkle.this, ForGps.class);
-
                                 startActivity(intent);
                                 break;
-
                             case R.id.navigation_item_3:
-
-
                                 intent = new Intent(NewYaziEkle.this, ForPaylasim.class);
-
                                 startActivity(intent);
                                 break;
-
                             case R.id.navigation_item_4:
-
-
                                 intent = new Intent(NewYaziEkle.this, Repository.class);
-
                                 startActivity(intent);
                                 break;
-
                             case R.id.navigation_item_5:
-
-
                                 intent = new Intent(NewYaziEkle.this, Forsquare.class);
 
                                 startActivity(intent);
                                 break;
                             case R.id.navigation_item_6:
-
-
                                 intent = new Intent(NewYaziEkle.this, ForWeather.class);
-
                                 startActivity(intent);
                                 break;
-
-
                         }
-
-
                         mDrawerLayout.closeDrawers();
-
-                        // Add code here to update the UI based on the item selected
-                        // For example, swap UI fragments here
-
+                        // Add code here to update the UI based on the item selected. For example, swap UI fragments here
                         return true;
                     }
                 });
-
-
     }
-
-
     //TOGGLEDAN ITEM SEÇME İŞLEMİNİ YAPMAK İÇİN TOGGLE I AÇMAYA YARAR.
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-
         if (nToggle.onOptionsItemSelected(item)) {
-
-
             return true;
         }
         return super.onOptionsItemSelected(item);
-        /* switch (item.getItemId()) {
-
-            case android.R.id.home:
-                mDrawerLayout.openDrawer(GravityCompat.START);
-                return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-*/
-
     }
-
-
-
-    /* Bu method önceki repositorylere tıklanınca onun ekranda tekrar edit text e getirilmesi için.
-
-    public void yeniRepo(String str) {
-
-        Toast.makeText(NewYaziEkle.this, "Alarm Çalıyor! Artık Uyan!", Toast.LENGTH_LONG).show();
-        Bundle repoInt = getIntent().getExtras();
-        String gelenRepo = repoInt.getString("send_repo");
-        Toast.makeText(NewYaziEkle.this, gelenRepo , Toast.LENGTH_LONG).show();
-       Toast.makeText(NewYaziEkle.this, "Alarm Çalıyor! Artık Uyan!", Toast.LENGTH_LONG).show();
-     Bundle repoInt = getIntent().getExtras();
-        String gelenRepo = repoInt.getString("send_repo");
-        blokYazi.setText(gelenRepo);
-
-
-
-    }
-     */
 }

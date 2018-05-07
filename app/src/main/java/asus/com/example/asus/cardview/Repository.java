@@ -1,21 +1,15 @@
 package asus.com.example.asus.cardview;
 
-import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import java.util.List;
-
-import static asus.com.example.asus.cardview.R.id.datepicker;
 
 
 public class Repository extends AppCompatActivity {
@@ -49,7 +43,7 @@ Yerın new yazı eklenin benzerini yap.
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-
+                Veritabani veritabani = new Veritabani(Repository.this);
                 String repo = listView.getItemAtPosition(i).toString();  //Tıklanan itemdaki veriyi aldım.
                 Intent a = new Intent(getApplicationContext(), NewYaziEkle.class);
                 a.putExtra("send_repo", repo);
@@ -71,7 +65,8 @@ Yerın new yazı eklenin benzerini yap.
                 String str = (String) listView.getItemAtPosition(position);
                 int itemId = (int) listView.getItemIdAtPosition(position);
                 Veritabani veritabani = new Veritabani(Repository.this);// Veritababnını tanımlamm gerkir.
-                veritabani.deleteUser(itemId);
+                veritabani.deleteUser(str);
+
                 adapter.remove(str);
 
 

@@ -68,7 +68,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".GoogleMapsApi"></activity>
+        <activity android:name=".GoogleMapsApi" />
+        <activity android:name=".NotificationC" />
+        <activity android:name=".ForHediye" />
+        <activity android:name=".HediyeSecim"></activity>
     </application>
 
 </manifest>

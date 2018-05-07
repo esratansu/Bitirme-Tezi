@@ -9,7 +9,7 @@ public class Album {
     private int numOfDays;
     private int thumbnail;
 
-    public Album() {
+    public Album(String name, String s, String january) {
     }
 
     public Album(String name, int numOfDays, int thumbnail) {

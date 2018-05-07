@@ -19,9 +19,7 @@ import java.util.List;
 import asus.com.example.asus.cardview.Album;
 import asus.com.example.asus.cardview.R;
 
-/**
- * Created by Ravi Tamada on 18/05/16.
- */
+
 public class AlbumsAdapter extends RecyclerView.Adapter<AlbumsAdapter.MyViewHolder> {
 
     private Context mContext;
@@ -39,13 +37,10 @@ public class AlbumsAdapter extends RecyclerView.Adapter<AlbumsAdapter.MyViewHold
             overflow = (ImageView) view.findViewById(R.id.overflow);
         }
     }
-
-
     public AlbumsAdapter(Context mContext, List<Album> albumList) {
         this.mContext = mContext;
         this.albumList = albumList;
     }
-
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
@@ -53,7 +48,6 @@ public class AlbumsAdapter extends RecyclerView.Adapter<AlbumsAdapter.MyViewHold
 
         return new MyViewHolder(itemView);
     }
-
     @Override
     public void onBindViewHolder(final MyViewHolder holder, int position) {
         Album album = albumList.get(position);
@@ -71,9 +65,6 @@ public class AlbumsAdapter extends RecyclerView.Adapter<AlbumsAdapter.MyViewHold
         });
     }
 
-    /**
-     * Showing popup menu when tapping on 3 dots
-     */
     private void showPopupMenu(View view) {
         // inflate menu
         PopupMenu popup = new PopupMenu(mContext, view);
@@ -83,9 +74,7 @@ public class AlbumsAdapter extends RecyclerView.Adapter<AlbumsAdapter.MyViewHold
         popup.show();
     }
 
-    /**
-     * Click listener for popup menu items
-     */
+
     class MyMenuItemClickListener implements PopupMenu.OnMenuItemClickListener {
 
         public MyMenuItemClickListener() {
@@ -103,7 +92,6 @@ public class AlbumsAdapter extends RecyclerView.Adapter<AlbumsAdapter.MyViewHold
             return false;
         }
     }
-
     @Override
     public int getItemCount() {
         return albumList.size();

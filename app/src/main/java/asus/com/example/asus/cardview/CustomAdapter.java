@@ -62,14 +62,10 @@ public class CustomAdapter extends BaseAdapter {
         public TextView tweetContent;
         public ImageView profil_image;
     }
-
     public View getView(final int position, View convertView, ViewGroup parent) {
-
         View vi=convertView;
         ViewHolder holder;
-
         if(convertView==null){
-
 
             vi = inflater.inflate(R.layout.tweetitem, null);
 
@@ -88,7 +84,6 @@ public class CustomAdapter extends BaseAdapter {
         if(veri.size()<=0)
         {
             //holder.text.setText("İcerik bulunmuyor");
-
         }
         else
         {

@@ -7,7 +7,6 @@ import android.content.pm.Signature;
 import android.content.res.Resources;
 import android.graphics.Rect;
 import android.os.Bundle;
-import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -18,22 +17,12 @@ import android.util.Base64;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
-
-import com.bumptech.glide.Glide;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
-
-import asus.com.example.asus.cardview.Album;
-import asus.com.example.asus.cardview.R;
-
-import static android.R.attr.id;
-import static android.provider.AlarmClock.EXTRA_MESSAGE;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -146,13 +135,9 @@ public class MainActivity extends AppCompatActivity {
         albumList.add(a);
 
 
-        adapter.notifyDataSetChanged();
-
+        adapter.notifyDataSetChanged();//adaptörü güncelliyor.
 
     }
-
-
-
 
     /**
      * RecyclerView item decoration - give equal margin around grid item
@@ -206,11 +191,12 @@ public class MainActivity extends AppCompatActivity {
     public void mesajGonder(View view) {
         // düğmeye yanıt verecek bir şeyler
 
-
         Intent intent = new Intent(this, MesajGosterActivity.class);
         ImageView editText = (ImageView) findViewById(R.id.thumbnail);
 
         startActivity(intent);
+
+
     }
 
 }

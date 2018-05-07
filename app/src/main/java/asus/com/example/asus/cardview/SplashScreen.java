@@ -15,20 +15,16 @@ public class SplashScreen extends Activity {
         mSplashThread = new Thread(){
             @Override public void run(){
                 try {
-
                     synchronized(this){
                         wait(4000);
                     }
                 }catch(InterruptedException ex){
-
                 }
                 finally{
-
                     Intent i=new Intent(getApplicationContext(),MainActivity.class);
                     startActivity(i);
                     finish();
                 }
-
             }
         };//thread objesini olustrduk ve istedmz sekilde sekillendrdik
         mSplashThread.start();// thread objesini calistriyoruz
